@@ -1,0 +1,75 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+#
+# grissom - FOSS compliance tools
+#
+# Copyright (c) 2013 Eric Le Bihan <eric.le.bihan.dev@free.fr>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+import argparse
+from grissom import __version__, binfmt, formatters
+from grissom.common import sanitize_args, setup_i18n
+from gettext import gettext as _
+
+setup_i18n()
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--version',
+                        action='version',
+                        version=__version__)
+    parser.add_argument('filenames',
+                        metavar='FILE',
+                        nargs='+',
+                        help=_('program to inspect'))
+    parser.add_argument('-F', '--full-path',
+                        action='store_true',
+                        dest='with_full_path',
+                        help=_('print full pathname'))
+    parser.add_argument('-L', '--library-path',
+                        action='append',
+                        dest='library_paths',
+                        default=[],
+                        metavar='DIR',
+                        help=_('set library search path'))
+    parser.add_argument('-D', '--deep',
+                        action='store_true',
+                        help=_('perform deep search'))
+    parser.add_argument('-f', '--format',
+                        choices=['pretty', 'simple', 'dot'],
+                        default='pretty',
+                        help=_('set output format'))
+
+    args = parser.parse_args()
+
+    graph = []
+
+    for filename in sanitize_args(args.filenames):
+        inspector = binfmt.create_inspector(filename)
+        inspector.with_full_path = args.with_full_path
+
+        for path in args.library_paths:
+            inspector.add_library_path(path)
+
+        if not args.library_paths:
+            args.deep = False
+
+        graph += inspector.find_dependencies(args.deep)
+
+    formatter = formatters.create_graph_formatter(args.format)
+    formatter.format(graph)
+
+# vim: ts=4 sts=4 sw=4 et ai

@@ -1,0 +1,215 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+#
+# grissom - FOSS compliance tools
+#
+# Copyright (c) 2013 Eric Le Bihan <eric.le.bihan.dev@free.fr>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+import os
+import sys
+import argparse
+from grissom import __version__
+from grissom.legal.fossology import create_agent
+from grissom.formatters import SpdxTagValueFormatter
+from grissom.common import sanitize_args, setup_i18n, load_configuration
+from gettext import gettext as _
+
+setup_i18n()
+
+def get_agent_params(args):
+    server = args.server
+    secured = args.secured
+    user = args.user
+    password = args.password
+
+    if not (server and secured and user and password):
+        try:
+            config = load_configuration()
+        except Exception as e:
+            msg = _("Can not load configuration ({0})").format(e)
+            print(msg, file=sys.stderr)
+            sys.exit(1)
+    try:
+        if not server:
+            server = config.get('Fossology', 'ServerAddress')
+
+        if not secured:
+            secured = config.getboolean('Fossology', 'ConnectionSecured')
+
+        if not user:
+            user = config.get('Fossology', 'User')
+
+        if not password:
+            password = config.get('Fossology', 'Password')
+    except Exception as e:
+        msg = _("Can not read configuration parameter ({0})").format(e)
+        print(msg, file=sys.stderr)
+        sys.exit(2)
+
+    return server, secured, user, password
+
+def parse_cmd_analyze(args):
+    with create_agent(*get_agent_params(args)) as agent:
+        n_errors = 0
+        for filename in sanitize_args(args.filenames):
+            try:
+                if args.spdx:
+                    info = agent.analyze_and_format(filename)
+                    formatter = SpdxTagValueFormatter()
+                    formatter.format(os.path.basename(filename), info)
+                else:
+                    info = agent.analyze(filename)
+                    print("{0}: {1}".format(filename, info['License']))
+            except Exception as e:
+                print("{0}".format(e), file=sys.stderr)
+                n_errors += 1
+        return n_errors
+
+def parse_cmd_search(args):
+    with create_agent(*get_agent_params(args)) as agent:
+        rc = 0
+        try:
+            results = agent.search(args.pattern)
+            for result in results:
+                if args.show_details:
+                    text = "{0.folder} {0.name} {0.upid} {0.itemid}"
+                    text = text.format(result)
+                else:
+                    text = "{0.name}".format(result)
+                print(text)
+        except Exception as e:
+            print("{0}".format(e), file=sys.stderr)
+            rc = 1
+        return rc
+
+def parse_cmd_query(args):
+    with create_agent(*get_agent_params(args)) as agent:
+        n_errors = 0
+        for package in sanitize_args(args.packages):
+            try:
+                if args.full:
+                    for fn, lic in agent.query_all(package):
+                        print("{0} {1}".format(fn, lic))
+                else:
+                    licenses = agent.query(package)
+                    crumbs = ["{0} ({1})".format(l, c) for l, c in licenses]
+                    print("{0}: {1}".format(package, ', '.join(crumbs)))
+            except Exception as e:
+                print("{0}".format(e), file=sys.stderr)
+                n_errors += 1
+        return n_errors
+
+def parse_cmd_submit(args):
+    with create_agent(*get_agent_params(args)) as agent:
+        n_errors = 0
+        for filename in sanitize_args(args.filenames):
+            try:
+                index = agent.submit(filename)
+                print(_("File registered as item # {0}").format(index))
+            except Exception as e:
+                print("{0}".format(e), file=sys.stderr)
+                n_errors += 1
+        return n_errors
+
+def parse_cmd_spdx(args):
+    with create_agent(*get_agent_params(args)) as agent:
+        rc = 0
+        try:
+            contents = agent.generate_spdx(args.package,
+                                           args.author,
+                                           args.comment)
+            if args.output:
+                with open(args.output, 'w') as f:
+                    f.write(contents)
+            else:
+                sys.stdout.write(contents)
+        except Exception as e:
+            print("{0}".format(e), file=sys.stderr)
+            rc = 1
+        return rc
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--version',
+                        action='version',
+                        version=__version__)
+    parser.add_argument('--secured', '-C',
+                        action='store_true',
+                        help=_('use secured connection'))
+    parser.add_argument('--password', '-P',
+                        help=_('set user password'))
+    parser.add_argument('--server', '-S',
+                        help=_('set server address'))
+    parser.add_argument('--user', '-U',
+                        help=_('set user name'))
+    subparsers = parser.add_subparsers()
+    parser_a = subparsers.add_parser('analyze',
+                                     help=_('one-shot analysis'))
+    parser_a.set_defaults(func=parse_cmd_analyze)
+    parser_a.add_argument('filenames',
+                          metavar='FILE',
+                          nargs='+',
+                          help=_('file to analyze'))
+    parser_a.add_argument('--spdx' , '-s',
+                          action='store_true',
+                          default=False,
+                          help=_('output result in SPDX format'))
+    parser_s = subparsers.add_parser('search',
+                                     help=_('search for a package'))
+    parser_s.set_defaults(func=parse_cmd_search)
+    parser_s.add_argument('pattern',
+                          help=_('filename search pattern'))
+    parser_s.add_argument('--details', '-d',
+                          action='store_true',
+                          default=False,
+                          dest='show_details',
+                          help=_("show  details"))
+    parser_q = subparsers.add_parser('query',
+                                     help=_('query licenses'))
+    parser_q.set_defaults(func=parse_cmd_query)
+    parser_q.add_argument('packages',
+                          metavar='PACKAGE',
+                          nargs='+',
+                          help=_('name of the package'))
+    parser_q.add_argument('--full' , '-f',
+                          action='store_true',
+                          default=False,
+                          help=_('output licenses of all the files'))
+    parser_u = subparsers.add_parser('submit',
+                                     help=_('submit file for analysis'))
+    parser_u.add_argument('filenames',
+                          metavar='FILE',
+                          nargs='+',
+                          help=_('file to submit'))
+    parser_u.set_defaults(func=parse_cmd_submit)
+    parser_x = subparsers.add_parser('spdx',
+                                     help=_('generate SPDX file'))
+    parser_x.set_defaults(func=parse_cmd_spdx)
+    parser_x.add_argument('package',
+                          help=_('package to process'))
+    parser_x.add_argument('--author', '-a',
+                          help=_('set author of the document'))
+    parser_x.add_argument('--comment', '-c',
+                          help=_('add a comment'))
+    parser_x.add_argument('--output', '-o',
+                          help=_('set output filename'))
+
+    args = parser.parse_args()
+    rc = args.func(args)
+    sys.exit(rc)
+
+# vim: ts=4 sts=4 sw=4 et ai

@@ -1,0 +1,213 @@
+# grissom - FOSS compliance tools
+# Copyright (C) 2013 Eric Le Bihan
+# This file is distributed under the same license as the grissom package.
+# Eric Le Bihan <eric.le.bihan.dev@free.fr>, 2013
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: grissom 0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-10-21 18:37+0200\n"
+"PO-Revision-Date: 2013-10-21 18:37+0200\n"
+"Last-Translator: Eric Le Bihan <eric.le.bihan.dev@free.fr>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: scripts/grissom-autopsy:38 scripts/grissom-origin:40
+msgid "file to identify"
+msgstr "fichier à identifier"
+
+#: scripts/grissom-autopsy:41
+msgid "set output directory"
+msgstr "définit le répertoire de sortie"
+
+#: scripts/grissom-deps:37
+msgid "program to inspect"
+msgstr "programme à inspecter"
+
+#: scripts/grissom-deps:41
+msgid "print full pathname"
+msgstr "affiche le chemin complet"
+
+#: scripts/grissom-deps:47
+msgid "set library search path"
+msgstr "définit un chemin de recherche des bibliothèques"
+
+#: scripts/grissom-deps:50
+msgid "perform deep search"
+msgstr "effectue une recherche en profondeur"
+
+#: scripts/grissom-deps:54
+msgid "set output format"
+msgstr "définit le format de sortie"
+
+#: scripts/grissom-legal-info:43
+msgid "Can not load configuration ({0})"
+msgstr "Impossible de charger la configuration ({0})"
+
+#: scripts/grissom-legal-info:59
+msgid "Can not read configuration parameter ({0})"
+msgstr "Impossible de lire un paramètre de configuration ({0})"
+
+#: scripts/grissom-legal-info:122
+msgid "File registered as item # {0}"
+msgstr "Fichier enregistré sous le numéro {0}"
+
+#: scripts/grissom-legal-info:152
+msgid "use secured connection"
+msgstr "utiliser une connexion sécurisée"
+
+#: scripts/grissom-legal-info:154
+msgid "set user password"
+msgstr "définit le mot de passe de l'utilisateur"
+
+#: scripts/grissom-legal-info:156
+msgid "set server address"
+msgstr "définit l'adresse du serveur"
+
+#: scripts/grissom-legal-info:158
+msgid "set user name"
+msgstr "définit le nom de l'utilisateur"
+
+#: scripts/grissom-legal-info:161
+msgid "one-shot analysis"
+msgstr "analyse unique"
+
+#: scripts/grissom-legal-info:166
+msgid "file to analyze"
+msgstr "fichier à analyser"
+
+#: scripts/grissom-legal-info:170
+msgid "output result in SPDX format"
+msgstr "affiche le résultat au format SPDX"
+
+#: scripts/grissom-legal-info:172
+msgid "search for a package"
+msgstr "cherche un paquet"
+
+#: scripts/grissom-legal-info:175
+msgid "filename search pattern"
+msgstr "motif de recherche de nom de fichier"
+
+#: scripts/grissom-legal-info:180
+msgid "show  details"
+msgstr "affiche les détails"
+
+#: scripts/grissom-legal-info:182
+msgid "query licenses"
+msgstr "demande les licenses"
+
+#: scripts/grissom-legal-info:187
+msgid "name of the package"
+msgstr "nom du paquet"
+
+#: scripts/grissom-legal-info:191
+msgid "output licenses of all the files"
+msgstr "récupère les licenses de tous les fichiers"
+
+#: scripts/grissom-legal-info:193
+msgid "submit file for analysis"
+msgstr "envoie un fichier pour analyse"
+
+#: scripts/grissom-legal-info:197
+msgid "file to submit"
+msgstr "fichier à envoyer"
+
+#: scripts/grissom-legal-info:200
+msgid "generate SPDX file"
+msgstr "génère un fichier SPDX"
+
+#: scripts/grissom-legal-info:203
+msgid "package to process"
+msgstr "paquet à traiter"
+
+#: scripts/grissom-legal-info:205
+msgid "set author of the document"
+msgstr "définit l'auteur du document"
+
+#: scripts/grissom-legal-info:207
+msgid "add a comment"
+msgstr "ajoute un commentaire"
+
+#: scripts/grissom-legal-info:209
+msgid "set output filename"
+msgstr "définit le nom du fichier de sortie"
+
+#: scripts/grissom-origin:46
+msgid "set source code search path"
+msgstr "définit le chemin de recherche du code source"
+
+#: scripts/grissom-origin:51
+msgid "set command to discard symbols"
+msgstr "définit la commande pour éliminer les symboles"
+
+#: scripts/grissom-origin:55
+msgid "be quiet"
+msgstr "mode silencieux"
+
+#: scripts/grissom-origin:74
+msgid "No match for {0}"
+msgstr "Pas de correspondance pour {0}"
+
+#: scripts/grissom-scan:37
+msgid "directory to scan"
+msgstr "répertoire à analyser"
+
+#: scripts/grissom-scan:41
+msgid "include shared libraries"
+msgstr "inclure les bibliothèques partagées"
+
+#: scripts/grissom-scan:45
+msgid "include kernel modules"
+msgstr "include les modules noyaux"
+
+#: grissom/binfmt/core.py:69
+msgid "can not find '{fn}"
+msgstr "impossible de trouver '{fn}'"
+
+#: grissom/binfmt/__init__.py:39 grissom/extractors/__init__.py:39
+msgid "File format not supported"
+msgstr "Format de fichier non supporté"
+
+#: grissom/common.py:177
+msgid "Can not find {0}"
+msgstr "Impossible de trouver {0}"
+
+#: grissom/legal/fossology.py:124
+msgid "No session"
+msgstr "Pas de session"
+
+#: grissom/legal/fossology.py:171 grissom/legal/fossology.py:291
+msgid "Invalid reply"
+msgstr "Réponse invalide"
+
+#: grissom/legal/fossology.py:245
+msgid "SPDX only works with archives"
+msgstr "SPDX ne fonctionne qu'avec des archives"
+
+#: grissom/legal/fossology.py:261
+msgid "Archives not supported"
+msgstr "Archives non supportées"
+
+#: grissom/legal/fossology.py:283 grissom/legal/fossology.py:310
+msgid "Can not find '{0}'"
+msgstr "Impossible de trouver '{0}'"
+
+#: grissom/legal/fossology.py:362
+msgid "Upload failed"
+msgstr "L'envoi a échoué"
+
+#: grissom/legal/fossology.py:381
+msgid "Package not found"
+msgstr "Paquet introuvable"
+
+#: grissom/legal/fossology.py:400
+msgid "Can not create SPDX file"
+msgstr "Impossible de créer le fichier SPDX"
+
+#: grissom/misc.py:109
+msgid "File does not match: {0}"
+msgstr "Le fichier ne correspond pas : {0}"

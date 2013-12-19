@@ -326,6 +326,28 @@ class FossologyAgent(object):
                 results.append((fields[-1], lic))
         return results
 
+    def query_major(self, pkgname):
+        """Query major license of a package.
+
+        :param pkgname: name of the package.
+        :type pkgname: str
+
+        :returns: the major license
+        :rtype: str
+        """
+        exceptions = [
+            'No_license_found', 'Same-license-as',
+            'FSF', 'Trademark-ref', 'GPL-exception'
+        ]
+        major = None
+        limit = 0
+        for license, count in self.query(pkgname):
+            if not license in exceptions:
+                if count > limit:
+                    major = license
+                    limit = count
+        return major
+
     def submit(self, filename):
         """Submit a file to Fossology for analysis.
 

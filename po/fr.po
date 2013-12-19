@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: grissom 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-21 18:37+0200\n"
-"PO-Revision-Date: 2013-10-21 18:37+0200\n"
+"POT-Creation-Date: 2013-12-19 18:54+0100\n"
+"PO-Revision-Date: 2013-12-19 18:55+0100\n"
 "Last-Translator: Eric Le Bihan <eric.le.bihan.dev@free.fr>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -52,87 +52,91 @@ msgstr "Impossible de charger la configuration ({0})"
 msgid "Can not read configuration parameter ({0})"
 msgstr "Impossible de lire un paramètre de configuration ({0})"
 
-#: scripts/grissom-legal-info:122
+#: scripts/grissom-legal-info:125
 msgid "File registered as item # {0}"
 msgstr "Fichier enregistré sous le numéro {0}"
 
-#: scripts/grissom-legal-info:152
+#: scripts/grissom-legal-info:155
 msgid "use secured connection"
 msgstr "utiliser une connexion sécurisée"
 
-#: scripts/grissom-legal-info:154
+#: scripts/grissom-legal-info:157
 msgid "set user password"
 msgstr "définit le mot de passe de l'utilisateur"
 
-#: scripts/grissom-legal-info:156
+#: scripts/grissom-legal-info:159
 msgid "set server address"
 msgstr "définit l'adresse du serveur"
 
-#: scripts/grissom-legal-info:158
+#: scripts/grissom-legal-info:161
 msgid "set user name"
 msgstr "définit le nom de l'utilisateur"
 
-#: scripts/grissom-legal-info:161
+#: scripts/grissom-legal-info:164
 msgid "one-shot analysis"
 msgstr "analyse unique"
 
-#: scripts/grissom-legal-info:166
+#: scripts/grissom-legal-info:169
 msgid "file to analyze"
 msgstr "fichier à analyser"
 
-#: scripts/grissom-legal-info:170
+#: scripts/grissom-legal-info:173
 msgid "output result in SPDX format"
 msgstr "affiche le résultat au format SPDX"
 
-#: scripts/grissom-legal-info:172
+#: scripts/grissom-legal-info:175
 msgid "search for a package"
 msgstr "cherche un paquet"
 
-#: scripts/grissom-legal-info:175
+#: scripts/grissom-legal-info:178
 msgid "filename search pattern"
 msgstr "motif de recherche de nom de fichier"
 
-#: scripts/grissom-legal-info:180
+#: scripts/grissom-legal-info:183
 msgid "show  details"
 msgstr "affiche les détails"
 
-#: scripts/grissom-legal-info:182
+#: scripts/grissom-legal-info:185
 msgid "query licenses"
 msgstr "demande les licenses"
 
-#: scripts/grissom-legal-info:187
+#: scripts/grissom-legal-info:190
 msgid "name of the package"
 msgstr "nom du paquet"
 
-#: scripts/grissom-legal-info:191
+#: scripts/grissom-legal-info:194
 msgid "output licenses of all the files"
-msgstr "récupère les licenses de tous les fichiers"
+msgstr "affiche les licences de tous les fichiers"
 
-#: scripts/grissom-legal-info:193
+#: scripts/grissom-legal-info:198
+msgid "output major license"
+msgstr "affiche la licence majoritaire"
+
+#: scripts/grissom-legal-info:200
 msgid "submit file for analysis"
 msgstr "envoie un fichier pour analyse"
 
-#: scripts/grissom-legal-info:197
+#: scripts/grissom-legal-info:204
 msgid "file to submit"
 msgstr "fichier à envoyer"
 
-#: scripts/grissom-legal-info:200
+#: scripts/grissom-legal-info:207
 msgid "generate SPDX file"
 msgstr "génère un fichier SPDX"
 
-#: scripts/grissom-legal-info:203
+#: scripts/grissom-legal-info:210
 msgid "package to process"
 msgstr "paquet à traiter"
 
-#: scripts/grissom-legal-info:205
+#: scripts/grissom-legal-info:212
 msgid "set author of the document"
 msgstr "définit l'auteur du document"
 
-#: scripts/grissom-legal-info:207
+#: scripts/grissom-legal-info:214
 msgid "add a comment"
 msgstr "ajoute un commentaire"
 
-#: scripts/grissom-legal-info:209
+#: scripts/grissom-legal-info:216
 msgid "set output filename"
 msgstr "définit le nom du fichier de sortie"
 
@@ -196,15 +200,15 @@ msgstr "Archives non supportées"
 msgid "Can not find '{0}'"
 msgstr "Impossible de trouver '{0}'"
 
-#: grissom/legal/fossology.py:362
+#: grissom/legal/fossology.py:384
 msgid "Upload failed"
 msgstr "L'envoi a échoué"
 
-#: grissom/legal/fossology.py:381
+#: grissom/legal/fossology.py:403
 msgid "Package not found"
 msgstr "Paquet introuvable"
 
-#: grissom/legal/fossology.py:400
+#: grissom/legal/fossology.py:422
 msgid "Can not create SPDX file"
 msgstr "Impossible de créer le fichier SPDX"
 

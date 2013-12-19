@@ -104,6 +104,9 @@ def parse_cmd_query(args):
                 if args.full:
                     for fn, lic in agent.query_all(package):
                         print("{0} {1}".format(fn, lic))
+                elif args.major:
+                    major = agent.query_major(package)
+                    print("{0} {1}".format(package, major))
                 else:
                     licenses = agent.query(package)
                     crumbs = ["{0} ({1})".format(l, c) for l, c in licenses]
@@ -189,6 +192,10 @@ if __name__ == '__main__':
                           action='store_true',
                           default=False,
                           help=_('output licenses of all the files'))
+    parser_q.add_argument('--major' , '-m',
+                          action='store_true',
+                          default=False,
+                          help=_('output major license'))
     parser_u = subparsers.add_parser('submit',
                                      help=_('submit file for analysis'))
     parser_u.add_argument('filenames',

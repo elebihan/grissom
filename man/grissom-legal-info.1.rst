@@ -79,6 +79,7 @@ the first matching package will be reported.
 Available options:
 
 -f, --full    output licenses of all the files
+-m, --major   output major license
 
 Example:
 

@@ -19,6 +19,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+import sys
 import argparse
 from grissom import __version__, binfmt, formatters
 from grissom.common import sanitize_args, setup_i18n
@@ -70,7 +71,7 @@ if __name__ == '__main__':
 
             graph += inspector.find_dependencies(args.deep)
         except Exception as error:
-            print(_("Error: {}").format(error))
+            print(_("Error: {}").format(error), file=sys.stderr)
 
     formatter = formatters.create_graph_formatter(args.format)
     formatter.format(graph)

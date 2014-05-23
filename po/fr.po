@@ -44,6 +44,10 @@ msgstr "effectue une recherche en profondeur"
 msgid "set output format"
 msgstr "définit le format de sortie"
 
+#: scripts/grissom-deps:73
+msgid "Error: {}"
+msgstr "Erreur : {}"
+
 #: scripts/grissom-legal-info:43
 msgid "Can not load configuration ({0})"
 msgstr "Impossible de charger la configuration ({0})"
@@ -169,8 +173,8 @@ msgid "include kernel modules"
 msgstr "include les modules noyaux"
 
 #: grissom/binfmt/core.py:69
-msgid "can not find '{fn}"
-msgstr "impossible de trouver '{fn}'"
+msgid "can not find {fn}"
+msgstr "impossible de trouver {fn}"
 
 #: grissom/binfmt/__init__.py:39 grissom/extractors/__init__.py:39
 msgid "File format not supported"

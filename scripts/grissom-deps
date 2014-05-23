@@ -67,7 +67,10 @@ if __name__ == '__main__':
         if not args.library_paths:
             args.deep = False
 
-        graph += inspector.find_dependencies(args.deep)
+        try:
+            graph += inspector.find_dependencies(args.deep)
+        except Exception as error:
+            print(_("Error: {}").format(error))
 
     formatter = formatters.create_graph_formatter(args.format)
     formatter.format(graph)

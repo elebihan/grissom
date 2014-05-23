@@ -66,7 +66,7 @@ class BinfmtInspector(object):
             if os.path.exists(fullname):
                 return fullname
         else:
-            msg = _("can not find '{fn}").format({'fn': filename})
+            msg = _("can not find {fn}").format(fn=filename)
             raise FileNotFoundError(msg)
 
     def _set_with_full_path(self, value):

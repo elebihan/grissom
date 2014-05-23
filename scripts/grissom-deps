@@ -58,16 +58,16 @@ if __name__ == '__main__':
     graph = []
 
     for filename in sanitize_args(args.filenames):
-        inspector = binfmt.create_inspector(filename)
-        inspector.with_full_path = args.with_full_path
-
-        for path in args.library_paths:
-            inspector.add_library_path(path)
-
-        if not args.library_paths:
-            args.deep = False
-
         try:
+            inspector = binfmt.create_inspector(filename)
+            inspector.with_full_path = args.with_full_path
+
+            for path in args.library_paths:
+                inspector.add_library_path(path)
+
+            if not args.library_paths:
+                args.deep = False
+
             graph += inspector.find_dependencies(args.deep)
         except Exception as error:
             print(_("Error: {}").format(error))

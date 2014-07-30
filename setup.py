@@ -19,8 +19,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from distutils.core import setup
-from disthelpers import build, build_trans, build_man, install_data
+from setuptools import setup, find_packages
+from disthelpers import extract_messages, init_catalog, update_catalog
+from disthelpers import build, build_catalog, build_man
 from glob import glob
 from grissom import __version__
 
@@ -38,23 +39,23 @@ setup(name='grissom',
                    'Natural Language :: English'
                    'License :: OSI Approved :: GNU General Public License (GPL)',),
       keywords=['grissom', 'FOSS', 'compliance'],
-      requires=['pyelftools (>=0.21)',
-                'filemagic (>=1.6)',
-                'beautifulsoup4 (>=4.3.2)',
-                'docutils (>=0.11)'],
-      packages=['grissom',
-                'grissom.binfmt',
-                'grissom.extractors',
-                'grissom.legal'],
+      install_requires=[
+          'pyelftools >=0.21',
+          'filemagic >=1.6',
+          'beautifulsoup4 >=4.3.2',
+          'docutils >=0.11'
+      ],
+      packages=find_packages(),
       scripts=glob('scripts/grissom-*'),
-      data_files=[('share/man/man1', glob('build/man/man1/grissom*.1')),
-                  ('share/man/man5', glob('build/man/man5/grissom*.5')),
-                  ('share/man/man7', glob('build/man/man5/grissom*.7')),],
+      data_files=[],
+      include_package_data=True,
       author='Eric Le Bihan',
       author_email='eric.le.bihan.dev@free.fr',
-      cmdclass = {'build': build,
-                  'build_man': build_man,
-                  'build_trans': build_trans,
-                  'install_data': install_data})
+      cmdclass={'build': build,
+                'build_man': build_man,
+                'extract_messages': extract_messages,
+                'init_catalog': init_catalog,
+                'update_catalog': update_catalog,
+                'build_catalog': build_catalog})
 
 # vim: ts=4 sts=4 sw=4 sta et ai
